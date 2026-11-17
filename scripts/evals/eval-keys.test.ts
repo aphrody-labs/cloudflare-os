@@ -62,7 +62,7 @@ before(() => {
   git("init", "-q");
   base = commit({
     "README.md": "readme",
-    "pnpm-lock.yaml": "lock",
+    "bun.lock": "lock",
     "packages/workshop-backend/src/agent.ts": "agent",
     "packages/workshop-evals/src/harness.ts": "harness",
     "packages/workshop-evals/src/comparison.ts": "comparison",
@@ -96,7 +96,7 @@ test("the Worker, the harness, the lockfile, shared helpers and admission change
     "packages/workshop-backend/src/agent.ts",
     "packages/workshop-evals/src/harness.ts",
     "packages/integration-tests/src/agent-session.ts",
-    "pnpm-lock.yaml",
+    "bun.lock",
     "packages/workshop-evals/evals/seeded.ts",
     "packages/workshop-evals/src/results.ts",
     "scripts/evals/validate-results.ts",

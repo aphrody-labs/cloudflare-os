@@ -321,23 +321,28 @@ function deeperThan(value: unknown, levels: number): boolean {
  * instead, so the position is found as where a prefix of it first fails that way.
  */
 function jsonFault(text: string, message: string): string {
-  const positioned = /^(.+?) (?:in|after) JSON at position (\d+)/.exec(message);
+  const positioned = /^(.+?) (?:in|after) JSON at position (d+)/.exec(message);
   if (positioned) return `${positioned[1][0].toLowerCase()}${positioned[1].slice(1)} at ${lineColumn(text, Number(positioned[2]))}`;
-  if (message.startsWith("Unexpected token")) return `unexpected character at ${lineColumn(text, unexpectedAt(text))}`;
-  return message.startsWith("Unexpected end") ? "it ends before its value does" : "it does not parse";
+  if (message.startsWith("Unexpected token") || /^JSON Parse error: Unexpected (?:identifier|token|symbol|number|string)/i.test(message)) {
+    return `unexpected character at ${lineColumn(text, unexpectedAt(text))}`;
+  }
+  if (message.startsWith("Unexpected end") || /^JSON Parse error: (?:Unexpected EOF|Expected |Unterminated )/i.test(message)) {
+    return "it ends before its value does";
+  }
+  return "it does not parse";
 }
 
-/** Whether JSON.parse throws "Unexpected token" on `text`: it holds a character no JSON has there. */
+/** Whether JSON.parse throws an unexpected-character/identifier error on `text` (V8 or JSC). */
 function hasUnexpected(text: string): boolean {
   try {
     JSON.parse(text);
     return false;
   } catch (error) {
-    return (error as Error).message.startsWith("Unexpected token");
+    const msg = (error as Error).message;
+    return msg.startsWith("Unexpected token") || /^JSON Parse error: Unexpected (?:identifier|token|symbol|number|string)/i.test(msg);
   }
 }
 
-/** Where the character is that makes JSON.parse throw "Unexpected token" on `text`. */
 function unexpectedAt(text: string): number {
   // The prefix of `high` characters fails at the character, that of `low` does not reach it.
   let low = 0;

@@ -20,7 +20,7 @@ export const OBSERVABILITY = {
 
 /** The capnweb-validate prebuild: wrangler bundles its output under `.wrangler/validate`. */
 export const CAPNWEB_VALIDATE_BUILD: WranglerBuild = {
-  command: "pnpm exec capnweb-validate build --out .wrangler/validate",
+  command: "bunx capnweb-validate build --out .wrangler/validate",
   watch_dir: "src",
 };
 

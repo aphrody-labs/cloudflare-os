@@ -19,7 +19,7 @@
     "MCP_ALLOW_INSECURE": "false"
   },
   "build": {
-    "command": "pnpm exec capnweb-validate build --out .wrangler/validate",
+    "command": "bunx capnweb-validate build --out .wrangler/validate",
     "watch_dir": "src"
   },
   "rules": [

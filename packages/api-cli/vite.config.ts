@@ -22,7 +22,7 @@ export default {
         dependsOn: ["@gadgets/api-schema#generate"],
       },
       test: {
-        command: withTestTimeout("node --test 'src/**/*.test.ts' 'generator/**/*.test.ts'"),
+        command: withTestTimeout("bun test src 'generator/**/*.test.ts'"),
         cache: {
           env: TESTS_WITH_TIMEOUT_ENV,
           input: [

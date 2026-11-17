@@ -91,7 +91,7 @@ const WORKER_INPUTS: WorkerInput[] = [
   },
   // Extended by every package above, so it controls their emit and their type checking.
   { kind: "file", path: "tsconfig.json" },
-  { kind: "file", path: "pnpm-lock.yaml" },
+  { kind: "file", path: "bun.lock" },
 ];
 
 /** Literal roots for `server.watcher.add`. Vite registers paths; the globs below filter events. */

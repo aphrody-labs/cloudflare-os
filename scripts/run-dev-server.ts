@@ -428,7 +428,7 @@ function shellSafe(path: string): boolean {
 // too), then each `pnpm exec <bin>` becomes a direct `node <entry>`. Wrangler runs the result
 // through a shell, so a body chained with `&&` stays valid.
 function withoutPnpmIndirection(pkgDir: string, command: string, depth = 0): string {
-  const runScript = /^pnpm run ([\w:.@-]+)$/.exec(command.trim())?.[1];
+  const runScript = /^(?:pnpm|bun) run ([\w:.@-]+)$/.exec(command.trim())?.[1];
   if (runScript && depth < 2) {
     try {
       const { scripts } = JSON.parse(readFileSync(join(pkgDir, "package.json"), "utf8"));
@@ -438,7 +438,7 @@ function withoutPnpmIndirection(pkgDir: string, command: string, depth = 0): str
       // Fall through and return the command untouched.
     }
   }
-  return command.replaceAll(/\bpnpm exec ([\w@/.-]+)/g, (original, bin) => {
+  return command.replaceAll(/\b(?:pnpm exec|bunx) ([\w@/.-]+)/g, (original, bin) => {
     const entry = resolveBinEntry(pkgDir, bin);
     return entry && shellSafe(process.execPath) && shellSafe(entry)
         ? `"${process.execPath}" "${entry}"` : original;

@@ -29,7 +29,7 @@ export default {
   run: {
     tasks: {
       test: {
-        command: withTestTimeout("node --test 'scripts/**/*.test.ts'"),
+        command: withTestTimeout("bun test scripts"),
         cwd: "..",
         cache: {
           env: TESTS_WITH_TIMEOUT_ENV,

@@ -225,7 +225,7 @@ function pinnedWranglerVersion(): string {
 // concurrency limit (vp/concurrency.ts); the limit is not a task input, so it never affects the hash.
 async function buildFrontend(signal: AbortSignal): Promise<CollectedAssets> {
   const env = { ...vpRunEnv(), VITE_CF_ACCESS_MODE: "true" };
-  await run("frontend (access mode)", "pnpm",
+  await run("frontend (access mode)", "bun",
       ["exec", "vp", "run", "-F", "@gadgets/workshop-frontend", "build"], { env, signal });
   return collectAssets(join(FRONTEND_DIR, "dist"));
 }
@@ -235,7 +235,7 @@ async function buildFrontend(signal: AbortSignal): Promise<CollectedAssets> {
 // which is what makes these safe to overlap.
 async function bundleWorker(pkg: DeployablePackage, bundleDir: string, signal: AbortSignal) {
   const outDir = join(bundleDir, pkg.name);
-  await run(pkg.name, "pnpm", ["exec", "wrangler", "deploy", "--dry-run", "--outdir", outDir],
+  await run(pkg.name, "bunx", [ "wrangler", "deploy", "--dry-run", "--outdir", outDir],
       { cwd: pkg.dir, signal });
   return collectModules(outDir);
 }

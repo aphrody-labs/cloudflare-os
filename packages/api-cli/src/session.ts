@@ -481,7 +481,7 @@ const NO_SERVER = new Set(["ECONNREFUSED", "ENOTFOUND", "EAI_AGAIN", "EHOSTUNREA
  * TLS record (OpenSSL's `wrong version number`, or a record too long to be one), or was HTTP.
  */
 const NOT_TLS = new Set(["ERR_SSL_WRONG_VERSION_NUMBER", "ERR_SSL_PACKET_LENGTH_TOO_LONG", "ERR_SSL_HTTP_REQUEST",
-  "ERR_SSL_UNKNOWN_PROTOCOL", "ERR_SSL_RECORD_LENGTH_MISMATCH"]);
+  "ERR_SSL_UNKNOWN_PROTOCOL", "ERR_SSL_RECORD_LENGTH_MISMATCH", "EPROTO"]);
 
 /**
  * The codes of a TLS handshake that met a TLS server whose certificate Node does not accept: one
@@ -497,7 +497,9 @@ const CERT_REFUSED = new Set(["DEPTH_ZERO_SELF_SIGNED_CERT", "SELF_SIGNED_CERT_I
  */
 function oneLine(message: string): string {
   const openSsl = /:error:[0-9A-F]+:[^:]*:[^:]*:([^:]+):/.exec(message);
-  return openSsl ? openSsl[1] : message.replace(/\s+/g, " ").trim();
+  if (openSsl) return openSsl[1];
+  if (/Does the server speak TLS on this port/i.test(message)) return "wrong version number";
+  return message.replace(/\s+/g, " ").trim();
 }
 
 /** {@link ProbePort} run on `http`'s host and port (an http:// or https:// URL), an IPv6 literal unbracketed. */

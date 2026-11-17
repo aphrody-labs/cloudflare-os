@@ -40,7 +40,7 @@ function isTestPath(path: string): boolean {
  */
 function isHarnessPath(path: string): boolean {
   if (isTestPath(path)) return false;
-  return isWorkerInputPath(path) || path === "package.json" || path === "pnpm-workspace.yaml" ||
+  return isWorkerInputPath(path) || path === "package.json" || path === "bun.lock" ||
     path === "scripts/evals/validate-results.ts" || path.startsWith("packages/integration-tests/") ||
     (path.startsWith(EVALS) && !path.startsWith(TASKS) && !REPORT_MODULES.has(path));
 }

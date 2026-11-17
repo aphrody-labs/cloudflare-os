@@ -306,7 +306,7 @@ describe("envFileConcurrencyLimit", () => {
     // `..` hops from here, which would mirror whatever the implementation does and go green with it.
     assert.equal(basename(ROOT_ENV_FILE), ".env");
     const root = dirname(ROOT_ENV_FILE);
-    assert.ok(existsSync(join(root, "pnpm-workspace.yaml")),
+    assert.ok(existsSync(join(root, "bun.lock")),
         `${root} is not the workspace root`);
   });
 });

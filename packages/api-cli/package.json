@@ -7,7 +7,7 @@
     "cf-os": "./src/bin.ts"
   },
   "scripts": {
-    "test:run": "node ../api-schema/scripts/generate.ts --if-stale && node --test 'src/**/*.test.ts' 'generator/**/*.test.ts'"
+    "test:run": "bun ../api-schema/scripts/generate.ts --if-stale && node --test 'src/**/*.test.ts' 'generator/**/*.test.ts'"
   },
   "dependencies": {
     "capnweb": "catalog:",

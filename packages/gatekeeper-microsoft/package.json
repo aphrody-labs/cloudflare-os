@@ -9,7 +9,7 @@
     "clean": "rm -rf dist src/generated",
     "test:run": "vp run -F @gadgets/microsoft-gatekeeper build:configurator && vitest run && vitest run -c vitest.worker.config.ts",
     "test:contract": "vitest run -c vitest.contract.config.ts",
-    "contract:sign-in": "node scripts/contract-sign-in.ts"
+    "contract:sign-in": "bun scripts/contract-sign-in.ts"
   },
   "dependencies": {
     "@gadgets/configurator-ui": "workspace:*",
