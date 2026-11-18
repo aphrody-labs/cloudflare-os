@@ -258,6 +258,7 @@
         "@gadgets/configurator-ui": "workspace:*",
         "@gadgets/gatekeeper-kit": "workspace:*",
         "@gadgets/observability": "workspace:*",
+        "@gadgets/pdf-renderer": "workspace:*",
         "@gadgets/workshop-shared": "workspace:*",
         "capnweb": "catalog:",
         "capnweb-validate": "catalog:",
@@ -632,6 +633,24 @@
         "@gadgets/scripts": "workspace:*",
         "typescript": "catalog:",
         "vitest": "catalog:",
+      },
+    },
+    "packages/pdf-renderer": {
+      "name": "@gadgets/pdf-renderer",
+      "version": "1.0.0",
+      "dependencies": {
+        "@gadgets/observability": "workspace:*",
+        "capnweb": "catalog:",
+        "capnweb-validate": "catalog:",
+      },
+      "devDependencies": {
+        "@cloudflare/vitest-plugin": "catalog:",
+        "@gadgets/scripts": "workspace:*",
+        "miniflare": "catalog:",
+        "typescript": "catalog:",
+        "vite": "catalog:",
+        "vitest": "catalog:",
+        "wrangler": "catalog:",
       },
     },
     "packages/router": {
@@ -1166,6 +1185,8 @@
     "@gadgets/office-content": ["@gadgets/office-content@workspace:packages/office-content"],
 
     "@gadgets/pagerduty-gatekeeper": ["@gadgets/pagerduty-gatekeeper@workspace:packages/gatekeeper-pagerduty"],
+
+    "@gadgets/pdf-renderer": ["@gadgets/pdf-renderer@workspace:packages/pdf-renderer"],
 
     "@gadgets/router": ["@gadgets/router@workspace:packages/router"],
 
